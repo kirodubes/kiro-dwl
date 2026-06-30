@@ -6,6 +6,8 @@ Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 ## 2026.06.30
 
 ### What Changed
+- **Build fix: added `tllist` to `makedepends`.** `fcft.pc` declares `Requires: tllist`, so
+  compiling dwlb against fcft failed with `Package 'tllist', required by 'fcft', not found`.
 - **Build fix: declared `monoclegaps` in `config.h`.** The `vanitygaps.patch` (part 2/2) adds
   `monoclegaps` to dwl's `config.def.h` and uses it in `monocle()`, but the PKGBUILD overwrites
   `config.h` with Kiro's baked copy — which lacked the declaration — so `dwl.c:1883` failed with
