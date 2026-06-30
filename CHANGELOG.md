@@ -6,6 +6,11 @@ Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 ## 2026.06.30
 
 ### What Changed
+- **Build fix: declared `monoclegaps` in `config.h`.** The `vanitygaps.patch` (part 2/2) adds
+  `monoclegaps` to dwl's `config.def.h` and uses it in `monocle()`, but the PKGBUILD overwrites
+  `config.h` with Kiro's baked copy — which lacked the declaration — so `dwl.c:1883` failed with
+  `'monoclegaps' undeclared`. Added the var to both `config.h` and the skel golden copy
+  (`etc/skel/.config/dwl/config.h`) so the package build and `kiro-dwl-rebuild` both compile.
 - **Moved shared dotfiles into the new `kiro-wayland-dotfiles` base** — mako, hyprlock/hypridle,
   and the waybar `colors.css`/`style.css` now come from that package (resolves the cross-edition
   file conflict, e.g. kiro-hyprland ↔ kiro-river both owning `~/.config/mako/config`). This edition

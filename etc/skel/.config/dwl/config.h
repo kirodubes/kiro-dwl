@@ -19,6 +19,7 @@
 static const int sloppyfocus               = 1;  /* focus follows mouse */
 static const int bypass_surface_visibility = 0;
 static const int smartgaps                 = 0;  /* 1 = no outer gap with a single window */
+static const int monoclegaps               = 0;  /* 1 = outer gaps in monocle layout */
 static const unsigned int borderpx         = 2;  /* border pixel of windows */
 static const unsigned int gappih           = 8;  /* horiz inner gap */
 static const unsigned int gappiv           = 8;  /* vert inner gap */
