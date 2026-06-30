@@ -6,6 +6,10 @@ Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 ## 2026.06.30
 
 ### What Changed
+- **Moved shared dotfiles into the new `kiro-wayland-dotfiles` base** — mako, hyprlock/hypridle,
+  and the waybar `colors.css`/`style.css` now come from that package (resolves the cross-edition
+  file conflict, e.g. kiro-hyprland ↔ kiro-river both owning `~/.config/mako/config`). This edition
+  now ships only its `waybar/config-<wm>.jsonc` and launches `waybar -c` against it.
 - **Initial package** for the Kiro dwl edition — the suckless "dwm-for-Wayland" member of the
   KIROTUX Wayland line, the Wayland sibling of ohmychadwm/chadwm.
 - **First KIROTUX edition that ships a compiled binary, not dotfiles.** dwl is configured at
