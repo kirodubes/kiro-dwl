@@ -1,0 +1,5 @@
+[Desktop Entry]
+Name=Kiro dwl
+Comment=Kiro suckless Wayland edition (dwl, dwm-for-Wayland)
+Exec=kiro-dwl-session
+Type=Application

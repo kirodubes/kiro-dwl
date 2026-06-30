@@ -1,0 +1,41 @@
+#!/bin/bash
+#####################################################################
+# Author    : Erik Dubois
+# Website   : https://kiroproject.be
+#####################################################################
+#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
+#
+# Purpose:
+#   The suckless edit-compile loop for kiro-dwl. Rebuilds dwl from the Kiro
+#   source using YOUR edited ~/.config/dwl/config.h and installs the result to
+#   ~/.local/bin/dwl (which takes precedence over the system binary on PATH).
+# Why:
+#   dwl is configured at COMPILE time. This makes the dwm-style "edit config.h,
+#   recompile" workflow first-class on Kiro — like chadwm on the X11 side.
+#####################################################################
+
+set -euo pipefail
+
+SRC_GOLDEN="/usr/share/kiro/kiro-dwl"        # pristine source shipped by the package
+WORK="${HOME}/.cache/kiro-dwl-build"
+USER_CONFIG="${HOME}/.config/dwl/config.h"
+DEST="${HOME}/.local/bin"
+
+[ -f "$USER_CONFIG" ] || { echo "No ${USER_CONFIG} to build from"; exit 1; }
+[ -d "$SRC_GOLDEN/dwl-src" ] || {
+    echo "Kiro dwl source not found at ${SRC_GOLDEN}/dwl-src."
+    echo "Reinstall kiro-dwl, or clone dwl + apply patches/ yourself."
+    exit 1
+}
+
+rm -rf "$WORK"
+cp -a "$SRC_GOLDEN/dwl-src" "$WORK"
+cp -f "$USER_CONFIG" "$WORK/config.h"
+
+echo "Building dwl from your config.h…"
+make -C "$WORK" clean >/dev/null 2>&1 || true
+make -C "$WORK"
+mkdir -p "$DEST"
+install -m755 "$WORK/dwl" "$DEST/dwl"
+
+echo "Installed ${DEST}/dwl — log out and back in (ensure ~/.local/bin is on PATH)."

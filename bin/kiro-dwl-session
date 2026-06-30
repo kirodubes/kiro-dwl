@@ -1,0 +1,26 @@
+#!/bin/sh
+#####################################################################
+# Author    : Erik Dubois
+# Website   : https://kiroproject.be
+#####################################################################
+#   DO NOT JUST RUN THIS. EXAMINE AND JUDGE. RUN AT YOUR OWN RISK.
+#
+# Purpose:
+#   Session launcher for the Kiro dwl edition. Sets the Wayland environment
+#   and starts dwl with its `-s` autostart entrypoint. Referenced by the
+#   /usr/share/wayland-sessions/dwl.desktop entry (SDDM/greeter picks it up).
+# Why:
+#   dwl takes its single autostart command via `-s`; this wires it to the
+#   shipped ~/.config/dwl/autostart.sh and sets BEMENU/portal env first.
+#####################################################################
+
+export XDG_CURRENT_DESKTOP=dwl
+export XDG_SESSION_DESKTOP=dwl
+export XDG_SESSION_TYPE=wayland
+export BEMENU_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
+export QT_QPA_PLATFORM="wayland;xcb"
+export GDK_BACKEND="wayland,x11,*"
+
+# Prefer a user-rebuilt dwl (kiro-dwl-rebuild → ~/.local/bin/dwl) if present.
+exec dwl -s "$HOME/.config/dwl/autostart.sh"

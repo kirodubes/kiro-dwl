@@ -1,0 +1,106 @@
+###############################################################################
+#  KEYBINDINGS — dwl  (the suckless Wayland edition)
+#  Source: config.h (compiled into the dwl binary — edit + kiro-dwl-rebuild)
+#  dwm/chadwm master-stack + tags grammar; Kiro SUPER scheme layered on.
+###############################################################################
+
+── 1. Applications & Launchers ────────────────────────────────────────────────
+  super + Return          Terminal
+  super + T               Terminal
+  ctrl + alt + Return     Terminal
+  super + shift + Return  File manager
+  super + E               Code editor
+  super + D               Launch apps (bemenu)
+  super + Space           Launch apps (bemenu)
+  super + R               Theme selector
+  super + V               Volume control
+  super + O               Colour picker
+  ctrl + alt + A          Alacritty tweak tool
+  ctrl + alt + B          Brave
+  ctrl + alt + C          Chromium
+  ctrl + alt + D          OBS Studio
+  ctrl + alt + E          Tweak tool
+  ctrl + alt + F          Firefox
+  ctrl + alt + G          Chromium
+  ctrl + alt + I          Kiro ISO builder
+  ctrl + alt + M          USB image writer
+  ctrl + alt + O          Opera
+  ctrl + alt + P          Package manager
+  ctrl + alt + Q          Alacritty tweak tool
+  ctrl + alt + S          Tweak tool
+  ctrl + alt + U          Volume control
+  ctrl + alt + V          Vivaldi
+  ctrl + alt + W          Fastfetch tweak tool
+  ctrl + alt + Z          Fastfetch tweak tool
+  ctrl + alt + End        System monitor
+  super + F1              Firefox
+  super + F2              Code editor
+  super + F3              Inkscape
+  super + F4              GIMP
+  super + F5              Meld
+  super + F6              VLC
+  super + F7              VirtualBox
+  super + F8              File manager
+  super + F9              Virt-manager
+  super + F10             Spotify
+  super + F11             Launch apps (bemenu)
+  super + F12             Launch apps (bemenu)
+
+── 2. Window Management ───────────────────────────────────────────────────────
+  super + Q               Close window
+  super + shift + Q       Close window
+  super + J               Focus next in stack
+  super + K               Focus previous in stack
+  super + I               More master windows
+  super + shift + I       Fewer master windows
+  super + H               Shrink master area
+  super + L               Grow master area
+  super + ctrl + Return   Zoom to master
+  super + F               Toggle fullscreen
+  super + shift + Space   Toggle floating
+  super + left-click      Move window
+  super + right-click     Resize window
+  super + middle-click    Toggle floating
+
+── 3. Workspaces / Tags / Groups ──────────────────────────────────────────────
+  super + 1..9            View tag 1..9  (AZERTY: same physical keys)
+  super + shift + 1..9    Move window to tag 1..9
+  super + ctrl + 1..9     Toggle tag 1..9 in view
+  super + 0               View all tags
+  super + shift + 0       Put window on all tags
+  super + Tab             Last tag
+  super + comma           Focus left monitor
+  super + period          Focus right monitor
+  super + shift + comma   Send window to left monitor
+  super + shift + period  Send window to right monitor
+
+── 4. Layout & Tiling ─────────────────────────────────────────────────────────
+  super + shift + T       Tile layout
+  super + shift + F       Floating layout
+  super + shift + M       Monocle layout
+  super + shift + G       Toggle gaps
+  super + ctrl + G        Reset gaps
+  super + =               Increase gaps
+  super + -               Decrease gaps
+
+── 6. Multimedia & Hardware ───────────────────────────────────────────────────
+  XF86AudioRaiseVolume    Volume up
+  XF86AudioLowerVolume    Volume down
+  XF86AudioMute           Mute
+  XF86AudioPlay           Play / pause
+  XF86AudioNext           Next track
+  XF86AudioPrev           Previous track
+  XF86MonBrightnessUp     Brightness up
+  XF86MonBrightnessDown   Brightness down
+
+── 7. Screenshots ─────────────────────────────────────────────────────────────
+  Print                   Screenshot region
+  super + Print           Screenshot screen
+
+── 8. System & Session ────────────────────────────────────────────────────────
+  super + X               Logout menu
+  super + shift + X       Power menu
+  super + ctrl + S        Show keybindings
+  ctrl + alt + K          Logout menu
+  ctrl + alt + L          Logout settings
+  ctrl + alt + R          Lockscreen wallpaper
