@@ -12,6 +12,22 @@ Format: one dated entry per day (`YYYY.MM.DD`), newest first.
   favorite/pause/resume/selector. No pywal-recolor combos — this edition keeps static Tokyo Night
   colours (no pywal), so there's nothing to recolor. `variety` + `kiro-variety-config` added to
   `depends=()`.
+- **Fixed: dwlb never appeared on boot (no bar at all).** Found live on `picard`. Root cause:
+  dwl's `-s` autostart mechanism wires the *whole script's* stdin to dwl's own raw status pipe
+  (dwl holds the write end open for its process lifetime). Every backgrounded child that doesn't
+  redirect stdin inherits that pipe, and `dwlb` — built without ipc support on this box, since the
+  vendored `patches/ipc.patch` didn't apply to the pinned `_dwlver=0.7` (the documented
+  "first-build alignment gate") — reads its own stdin unconditionally whenever ipc is compiled
+  off. Either dwl's raw protocol bytes or an EOF on that inherited pipe killed dwlb via a silent
+  clean exit: no DIE() message, no signal, no trace, just gone. Fixed by giving dwlb its own
+  always-open, empty stdin (`< <(exec tail -f /dev/null)`) so it never touches dwl's pipe.
+  Confirmed live on picard (bar renders, `status.sh`'s clock/volume feed works over the control
+  socket) — tags are visible but **not clickable**, since ipc is still compiled off; that's a
+  separate, already-documented gap (see the alignment-gate note in `CLAUDE.md`), not something
+  this fix addresses.
+- Bumped `autostart.sh`'s shebang from `#!/bin/sh` to `#!/bin/bash` — the stdin fix uses bash
+  process substitution (`<(...)`), not POSIX sh. `/bin/sh` happens to be bash on Arch so the old
+  shebang wasn't broken, but the script now genuinely needs bash, so it says so.
 
 ### Technical Details
 - Baked into `config.h` (compile-time) — both the root `config.h` and the golden `etc/skel`
@@ -20,13 +36,40 @@ Format: one dated entry per day (`YYYY.MM.DD`), newest first.
   on an already-compiled dwl binary.
 - Verified no existing bare-Alt binds collided with alt+n/p/t/f/w/arrows before adding (only
   `CTRL+ALT` combos existed on those letters).
+- dwlb root-caused by reading its own source (`~/Public/dwl-bar-dwlb-kolunmi/dwlb.c`): `!ipc`
+  unconditionally adds `STDIN_FILENO` to the `select()` set and calls `read_stdin()`, independent
+  of whether `-status-stdin` was ever requested. Confirmed via live SSH testing on picard: dwlb
+  survives indefinitely with a live-but-silent stdin (a held-open FIFO / `tail -f /dev/null`), but
+  dies immediately and silently whenever its stdin is EOF'd or fed unrelated data — matching dwl's
+  raw printstatus() pipe exactly. `autostart.sh` is applied and live on picard now (patched
+  directly over SSH); the canonical repo copy here was written to match, byte-for-byte on the
+  fixed block.
+- **Re-vendored `patches/ipc.patch` to actually apply to `dwl 0.7`.** The shipped patch (choc's
+  `dwl-ipc-unstable-v2`, commit `6c6d655b`) predates 0.7 and failed 1 of 12 hunks —
+  `printstatus()` — because 0.7 added a NULL-safe title/appid fallback (`broken`) the old patch's
+  context didn't know about. Hand-ported that one hunk (same intent: replace the body with
+  `wl_list_for_each(m, &mons, link) dwl_ipc_output_printstatus(m);`); the other 11 hunks were
+  unchanged, just regenerated as a clean diff against `dwl 0.7` + `vanitygaps` so `patch -p1`
+  applies with **zero fuzz, zero offset**. Two other candidates were dead ends: `~/Public/dwl-
+  nephitejnf-rice/patches/ipc-v2-fixed.patch` targets a divergent fork (not a clean-tag patch) and
+  `~/Public/dwl-patches-codeberg/stale-patches/ipc/ipc.patch` is byte-identical to the one that was
+  already failing. Verified the new patch's bundled protocol XML matches `dwlb`'s own vendored
+  copy (`~/Public/dwl-bar-dwlb-kolunmi`) — same interfaces, same version 2, diff is upstream typo
+  fixes only (proccess→process, recieve→receive) — so the wayland-protocol contract lines up on
+  both sides of the wire.
+  **Not yet built or tested.** `patch -p1 --dry-run` passing is a textual/structural guarantee,
+  not a compile guarantee — the chroot build (`KIROTUX-PKG-BUILD/kiro-dwl/build.sh`) needs an
+  interactive `sudo` password, which has to be run by Erik. Once built: reinstall on `picard`,
+  confirm `dwl` boots clean, and confirm tags are actually clickable (not just visible).
 
 ### Files Modified
 - [config.h](config.h)
 - [etc/skel/.config/dwl/config.h](etc/skel/.config/dwl/config.h)
 - [etc/skel/.config/dwl/autostart.sh](etc/skel/.config/dwl/autostart.sh)
 - [etc/skel/.config/dwl/keybindings.txt](etc/skel/.config/dwl/keybindings.txt)
+- [patches/ipc.patch](patches/ipc.patch) — re-vendored for `dwl 0.7`
 - [../KIROTUX-PKG-BUILD/kiro-dwl/PKGBUILD](../KIROTUX-PKG-BUILD/kiro-dwl/PKGBUILD)
+- picard (live, `~/.config/dwl/autostart.sh`, out-of-band SSH patch — not part of this repo)
 
 ## 2026.06.30
 

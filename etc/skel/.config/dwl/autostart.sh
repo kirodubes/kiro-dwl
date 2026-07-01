@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #####################################################################
 # Author    : Erik Dubois
 # Website   : https://kiroproject.be
@@ -32,7 +32,15 @@ hypridle &
 nm-applet --indicator &
 
 # The bar — dwlb gets live tags from dwl over ipc; status.sh feeds the clock/volume.
-dwlb -font "JetBrainsMono Nerd Font:size=12" &
+# dwl's `-s` mechanism wires this WHOLE script's stdin to dwl's own raw status pipe (dwl
+# holds the write end open for its lifetime, feeding it printstatus() protocol lines). Any
+# backgrounded child that doesn't redirect stdin inherits that pipe. dwlb (built without ipc
+# support when the vendored ipc.patch doesn't apply to the pinned dwl tag — see the kiro-dwl
+# PKGBUILD "first-build alignment gate") reads its own stdin unconditionally when ipc is off,
+# and either dwl's raw bytes or an EOF on that pipe kills it silently — no error, no bar, no
+# trace. Give it its own always-open, empty stdin so it never touches dwl's pipe: `tail -f
+# /dev/null` blocks forever without producing data or EOF.
+dwlb -font "JetBrainsMono Nerd Font:size=12" < <(exec tail -f /dev/null) >/dev/null 2>&1 &
 "$HOME/.config/dwl/status.sh" &
 
 # Live ISO only: auto-launch the installer. kiro_final strips this line on install.
