@@ -192,6 +192,18 @@ static const Key keys[] = {
 	{ 0, XKB_KEY_XF86MonBrightnessUp,   spawn, SHCMD("brightnessctl set 5%+") },
 	{ 0, XKB_KEY_XF86MonBrightnessDown, spawn, SHCMD("brightnessctl set 5%-") },
 
+	/* ── Wallpaper (Variety) — ohmychadwm's binding scheme, ported. No recolor combos here:
+	   this edition keeps static Tokyo Night colours (no pywal), so there's nothing to recolor. ── */
+	{ WLR_MODIFIER_ALT, XKB_KEY_n,     spawn, SHCMD("variety --next") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_Right, spawn, SHCMD("variety --next") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_p,     spawn, SHCMD("variety --previous") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_Left,  spawn, SHCMD("variety --previous") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_t,     spawn, SHCMD("variety --trash") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_f,     spawn, SHCMD("variety --favorite") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_Up,    spawn, SHCMD("variety --pause") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_Down,  spawn, SHCMD("variety --resume") },
+	{ WLR_MODIFIER_ALT, XKB_KEY_w,     spawn, SHCMD("variety --selector") },
+
 	/* ── Screenshots ── */
 	{ 0,      XKB_KEY_Print,            spawn, SHCMD("grim -g \"$(slurp)\" - | wl-copy") },
 	{ MODKEY, XKB_KEY_Print,            spawn, SHCMD("grim - | wl-copy") },

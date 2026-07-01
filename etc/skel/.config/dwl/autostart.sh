@@ -26,6 +26,7 @@ xdg-user-dirs-update &
 
 # Wallpaper, notifications, idle-lock daemon, network applet.
 swaybg -m fill -i "$HOME/.config/dwl/bg/kiro.jpg" &
+variety &
 mako &
 hypridle &
 nm-applet --indicator &

@@ -3,6 +3,31 @@
 All notable changes to **kiro-dwl** are documented here.
 Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 
+## 2026.07.01
+
+### What Changed
+- **Added Variety wallpaper-rotator autostart + keybinds.** `variety` (configured by
+  `kiro-variety-config`) now autostarts alongside the existing static `swaybg` wallpaper. Ported
+  the ohmychadwm `keybindings.txt` scheme (alt+N/P/T/F/arrows/Up/Down/W): next/previous/trash/
+  favorite/pause/resume/selector. No pywal-recolor combos — this edition keeps static Tokyo Night
+  colours (no pywal), so there's nothing to recolor. `variety` + `kiro-variety-config` added to
+  `depends=()`.
+
+### Technical Details
+- Baked into `config.h` (compile-time) — both the root `config.h` and the golden `etc/skel`
+  copy updated in lockstep, matching the existing `monoclegaps` fix pattern in this file. Requires
+  `kiro-dwl-rebuild` (or a fresh package build) to take effect — a config.h edit alone does nothing
+  on an already-compiled dwl binary.
+- Verified no existing bare-Alt binds collided with alt+n/p/t/f/w/arrows before adding (only
+  `CTRL+ALT` combos existed on those letters).
+
+### Files Modified
+- [config.h](config.h)
+- [etc/skel/.config/dwl/config.h](etc/skel/.config/dwl/config.h)
+- [etc/skel/.config/dwl/autostart.sh](etc/skel/.config/dwl/autostart.sh)
+- [etc/skel/.config/dwl/keybindings.txt](etc/skel/.config/dwl/keybindings.txt)
+- [../KIROTUX-PKG-BUILD/kiro-dwl/PKGBUILD](../KIROTUX-PKG-BUILD/kiro-dwl/PKGBUILD)
+
 ## 2026.06.30
 
 ### What Changed
