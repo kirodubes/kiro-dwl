@@ -3,6 +3,17 @@
 All notable changes to **kiro-dwl** are documented here.
 Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 
+## 2026.07.02
+
+### What Changed
+- **Moved `/etc/dconf/profile/user` + `/etc/dconf/db/local.d/00-kiro.conf` to
+  `kiro-wayland-dotfiles`.** All 9 Kiro Wayland editions had shipped identical copies of these
+  files, which conflicted in pacman whenever two editions were installed on the same machine.
+  Settings unchanged — now owned once in the shared package (already a dependency here).
+
+### Files Modified
+- `etc/dconf/` (removed, moved to `kiro-wayland-dotfiles`)
+
 ## 2026.07.01
 
 ### What Changed
