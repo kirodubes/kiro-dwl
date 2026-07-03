@@ -146,6 +146,7 @@ static const Key keys[] = {
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_p,    spawn,            SHCMD("pamac-manager") },
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_s,    spawn,            SHCMD("fish-tweak-tool") },
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_u,    spawn,            SHCMD("pavucontrol") },
+	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_t,    spawn,            SHCMD("alacritty") },
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_v,    spawn,            SHCMD("vivaldi-stable") },
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_w,    spawn,            SHCMD("fastfetch-tweak-tool") },
 	{ WLR_MODIFIER_CTRL|WLR_MODIFIER_ALT, XKB_KEY_z,    spawn,            SHCMD("fastfetch-tweak-tool") },
