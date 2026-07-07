@@ -58,10 +58,10 @@ static const MonitorRule monrules[] = {
 	{ NULL,   0.55f, 1,      1,    &layouts[0], WL_OUTPUT_TRANSFORM_NORMAL, -1, -1 },
 };
 
-/* keyboard — Belgian + US (matches the rest of the Kiro line), Caps = Compose */
+/* keyboard — US + Belgian (US default; matches the rest of the Kiro line), Caps = Compose */
 static const struct xkb_rule_names xkb_rules = {
-	.layout = "be,us",
-	.options = "compose:caps",
+	.layout = "us,be",
+	.options = "grp:alt_shift_toggle,compose:caps",
 };
 
 static const int repeat_rate  = 40;
