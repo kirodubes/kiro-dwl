@@ -22,7 +22,9 @@ fan-out on this edition.
 - `etc/skel/.config/dwl/` — `autostart.sh` (the single session entrypoint), `status.sh` (dwmblocks-
   style feed), `config.h` (editable copy), `keybindings.txt`, `bg/kiro.jpg`, and `scripts/`
   (`kiro-dwl-rebuild`, `import-gsettings.sh`).
-- `etc/skel/.config/{mako,hypr}/` — notifications + the hyprlock/hypridle lock pipeline.
+Notifications (`mako`) and the hyprlock/hypridle lock pipeline are **not** shipped here — they come
+from the shared [`kiro-wayland-dotfiles`](https://github.com/kirodubes/kiro-wayland-dotfiles) base
+(a dependency).
 
 ## Hackable (the suckless promise)
 

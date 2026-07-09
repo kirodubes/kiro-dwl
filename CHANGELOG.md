@@ -3,6 +3,18 @@
 All notable changes to **kiro-dwl** are documented here.
 Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 
+## 2026.07.09
+
+### README: drop shared files it no longer ships
+
+**What Changed**
+- "What it ships" listed `etc/skel/.config/{mako,hypr}/` (notifications + hyprlock/hypridle),
+  but those were moved to the shared `kiro-wayland-dotfiles` base on 2026.06.30 and are not in
+  this package. README now states they come from that dependency.
+
+**Files Modified**
+- `README.md`
+
 ## 2026.07.07
 
 ### Keyboard: US default + Alt+Shift layout toggle
