@@ -3,6 +3,30 @@
 All notable changes to **kiro-dwl** are documented here.
 Format: one dated entry per day (`YYYY.MM.DD`), newest first.
 
+## 2026.09.05
+
+### What Changed
+- **Print now leaves a file behind.** The screenshot binds ran `grim … | wl-copy`, which put the
+  image on the clipboard and nowhere else — no file, no notification, so the key looked dead next to
+  chadwm's scrot bind that writes into `~/Pictures`. Both binds now call the shared
+  `kiro-screenshot region` / `kiro-screenshot screen`, which saves a timestamped PNG in
+  `~/Pictures/Screenshots`, still copies to the clipboard, and notifies with a thumbnail.
+
+### Technical Details
+- The helper is `/usr/bin/kiro-screenshot`, shipped by `kiro-wayland-dotfiles` — already a dependency
+  of this package. The same clipboard-only line had been copy-pasted into twelve editions, so it now
+  lives in exactly one place instead of being fixed twelve times.
+- `config.h`: `SHCMD("kiro-screenshot region")`. dwl is suckless — the config is **compiled in**, so the
+  change lands in **both** the repo-root `config.h` (baked into the shipped binary by the recipe's
+  `prepare()`) and the skel copy that `kiro-dwl-rebuild` recompiles from. This is the only edition
+  where the fix rebuilds a binary.
+- **Build `kiro-wayland-dotfiles` first**: it provides the binary this edition's binds call.
+
+### Files Modified
+- `config.h`
+- `etc/skel/.config/dwl/config.h`
+- `etc/skel/.config/dwl/keybindings.txt`
+
 ## 2026.07.09
 
 ### README: drop shared files it no longer ships

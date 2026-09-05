@@ -206,8 +206,8 @@ static const Key keys[] = {
 	{ WLR_MODIFIER_ALT, XKB_KEY_w,     spawn, SHCMD("variety --selector") },
 
 	/* ── Screenshots ── */
-	{ 0,      XKB_KEY_Print,            spawn, SHCMD("grim -g \"$(slurp)\" - | wl-copy") },
-	{ MODKEY, XKB_KEY_Print,            spawn, SHCMD("grim - | wl-copy") },
+	{ 0,      XKB_KEY_Print,            spawn, SHCMD("kiro-screenshot region") },
+	{ MODKEY, XKB_KEY_Print,            spawn, SHCMD("kiro-screenshot screen") },
 
 	/* ── Tags 1..9 + all ── */
 	{ MODKEY,                    XKB_KEY_0,           view,             {.ui = ~0} },
